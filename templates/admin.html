@@ -14,25 +14,35 @@
   <body>
     <div class="container">
       <h1>Активные проишествия</h1>
+      Сортировать по: <br>
+      <button type="button" onclick='$("#tbl>div").sort(function(t,r){var a=parseInt($(t).attr("srt")),n=parseInt($(r).attr("srt"));return n<a?-1:a<n?1:0}).appendTo($("#tbl"));' class="btn btn-primary" >Уровню угрозы</button>
+      <button type="button" onclick='$("#tbl>div").sort(function(t,r){var a=parseInt($(t).attr("ts")),n=parseInt($(r).attr("ts"));return n<a?-1:a<n?1:0}).appendTo($("#tbl"));' class="btn btn-primary">Времени</button>
+      <button type="button" onclick='$("#tbl>div").sort(function(t,r){var a=parseInt($(t).attr("rt")),n=parseInt($(r).attr("rt"));return n<a?-1:a<n?1:0}).appendTo($("#tbl"));' class="btn btn-primary">Рейтингу</button>
+      <button type="button" onclick='$("#tbl>div").sort(function(t,r){var a=parseInt($(t).attr("cf")),n=parseInt($(r).attr("cf"));return n<a?-1:a<n?1:0}).appendTo($("#tbl"));' class="btn btn-primary">Важности</button>
+
+      <div id='tbl'>
       <br>
       {% for event in events %}
-      <div class="card w-75">
+      <div srt={{event.srt}} rt={{event.good}} cf={{event.cf}} ts={[event.ts]}>
+      <div class="card w-75" >
         <div class="card-body">
-          <h5 class="card-title">{{event.title}} <span style="font-size: 2em; color: {{event.level}}"> <i class="fas fa-exclamation"></i> </span></h5>
+          <h5 class="card-title"><span style="font-size: 2em; color: {{event.level}}"> <i class="fas fa-exclamation"></i> </span> {{event.title}}</h5>
           <p class="card-text">{{event.disc}}</p>
           <p class="card-text">
+            <b>Время:</b> {{event.time}} <br>
             <b>Место:</b> {{event.adress}} <br>
-            <b>Автор:</b> {{event.name}} {{event.lastName}} ( рейтинг: {{event.rep}}) {{event.phone}} <br>
-            <b>Рейтинг:</b> +{{event.good}}/-{{event.bad}}
+            <b>Автор:</b> {{event.name}}  ( рейтинг: {{event.rep}})  телефон: {{event.phone}} <br>
+            <b>Рейтинг:</b> {{event.good}}
           </p>
-          <a href="#" class="btn btn-success">Подтвердить</a>
-          <a href="#" class="btn btn-danger">Опровергнуть</a>
+          <a href="#" onclick="alert('Сообщение подтверждено')" class="btn btn-success">Подтвердить</a>
+          <a href="#" onclick="alert('Сообщение опровержено')" class="btn btn-danger">Опровергнуть</a>
           <a href="#" class="btn btn-info">Подробнее</a>
         </div>
       </div>
       <br>
+    </div>
       {% endfor %}
-
+    </div>
       </div>
 
 
